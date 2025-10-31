@@ -1,9 +1,3 @@
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
-
 pathmunge () {
       if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)" ; then
            if [ "$2" = "after" ] ; then
@@ -31,8 +25,8 @@ case "$TERM" in
     xterm-*color|screen-*color) color_prompt=yes;;
 esac
 
-if [ -f /etc/nixos/bash/bash-git-prompt.sh ]; then
-    . /etc/nixos/bash/bash-git-prompt.sh
+if [ -f ~/.bash-git-prompt ]; then
+    . ~/.bash-git-prompt
 else
   PS1='[\t] (\h) \W\$ '
 fi
@@ -50,8 +44,8 @@ esac
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f /etc/nixos/bash/bash-aliases.sh ]; then
-    . /etc/nixos/bash/bash-aliases.sh
+if [ -f ~/.bash-aliases ]; then
+    . ~/.bash-aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -73,25 +67,19 @@ export PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 shopt -s cmdhist
 shopt -s histappend
 
-if [ -f /etc/nixos/bash/bash-google.sh ]; then
-    . /etc/nixos/bash/bash-google.sh
+if [ -f ~/.bash-google ]; then
+    . ~/.bash-google
 fi
 
 # Key bindings
-if [ -f /etc/nixos/bash/bash-bindings.sh ]; then
-  bind -f /etc/nixos/bash/bash-bindings.sh
+if [ -f ~/.bash-bindings ]; then
+  bind -f ~/.bash-bindings
 fi
 
 # Repo
-if [ -f /etc/nixos/bash/bash-completion-git-repo.sh ]; then
-    . /etc/nixos/bash/bash-completion-git-repo.sh
+if [ -f ~/.bash-completion-git-repo ]; then
+    . ~/.bash-completion-git-repo
 fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/aalbert/src/google-cloud-sdk/path.bash.inc' ]; then . '/home/aalbert/src/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/aalbert/src/google-cloud-sdk/completion.bash.inc' ]; then . '/home/aalbert/src/google-cloud-sdk/completion.bash.inc'; fi
 
 # https://askubuntu.com/questions/70750/how-to-get-bash-to-stop-escaping-during-tab-completion
 shopt -s direxpand

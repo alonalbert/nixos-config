@@ -55,7 +55,7 @@ alias 'debug-unsuspend=export DEFAULT_JVM_DEBUG_SUSPEND=n'
 # ssh
 alias 'ssh=ssh -X'
 
-which() {
+_which() {
   _whichAll=
   if [ "$1" = "-a" ]; then
      _whichAll=-a
@@ -72,13 +72,13 @@ which() {
     return
   fi
 
-  /usr/bin/which ${_whichAll} $1
+  which ${_whichAll} $1
 }
 
 # which
 #
-alias   wh=which
-alias   "where=which -a"
+alias   wh=_which
+alias   "where=_which -a"
 alias   wr=where
 
 # Tidy

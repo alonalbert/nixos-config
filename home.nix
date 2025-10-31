@@ -2,10 +2,20 @@
 
 {
   home = {
-    file.".bashrc" = { source = ./dots/bashrc.sh; };
-    file.".bash_profile" = { source = ./dots/bash_profile.sh; };
+    file.".bash-extras" = { source = ./dots/bash-extras.sh; };
+    file.".bash-aliases" = { source = ./dots/bash-aliases.sh; };
+    file.".bash-bindings" = { source = ./dots/bash-bindings.sh; };
+    file.".bash-git-prompt" = { source = ./dots/bash-git-prompt.sh; };
+    file.".bash-prompt-constants" = { source = ./dots/bash-prompt-constants.sh; };
   };
 
-  # Make sure to set this. It's for state versioning.
-  home.stateVersion = "25.11"; # Or your current NixOS version
+    programs.bash = {
+    enable = true;
+
+    initExtra = ''
+      source "${pkgs.git}/share/git/contrib/completion/git-prompt.sh"
+      source ~/.bash-extras
+    '';
+  };
+  home.stateVersion = "25.11";
 }
