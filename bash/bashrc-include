@@ -1,0 +1,10 @@
+# Include this with:
+# programs.bash = {
+#   promptInit = builtins.readFile ./bash/bashrc-include;
+# };
+#
+
+if [ -f /etc/nixos/bash/bashrc.sh ]; then
+    source /etc/nixos/bash/bashrc.sh
+fi
+

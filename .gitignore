@@ -1,0 +1,8 @@
+.idea/
+
+# Nix build artifacts
+result
+
+# Any unencrypted secret files
+secrets/
+*.secret
