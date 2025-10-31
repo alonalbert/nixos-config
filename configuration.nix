@@ -91,6 +91,9 @@
     ];
   };
 
+  home-manager.users.al = import ./home.nix;
+  home-manager.useGlobalPkgs = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -143,10 +146,5 @@
 
   environment.variables = {
     EDITOR = "vim";
-  };
-
-  programs.bash = {
-    promptInit = builtins.readFile ./bash/bashrc-include;
-    lsColorsFile = ./bash/dircolors;
   };
 }
