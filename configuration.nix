@@ -119,4 +119,6 @@
   environment.variables = {
     EDITOR = "vim";
   };
+
+  security.sudo.extraConfig = "Defaults timestamp_timeout=60";
 }
