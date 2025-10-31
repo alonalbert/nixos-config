@@ -5,10 +5,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -82,7 +82,10 @@
   users.users.al = {
     isNormalUser = true;
     description = "Alon Albert";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
     ];
     openssh.authorizedKeys.keys = [
@@ -102,6 +105,7 @@
   environment.systemPackages = with pkgs; [
     git
     google-chrome
+    pkgs.nixfmt-rfc-style
     vim
     wget
   ];
