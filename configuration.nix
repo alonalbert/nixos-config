@@ -79,19 +79,30 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.al = {
-    isNormalUser = true;
-    description = "Alon Albert";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    packages = with pkgs; [
-    ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEggca7URZwsanzBRs6kxYOjOfs2knIcATYHvhC4N9rz gLaptop"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQpY0yw/JTDer1H2tXokXRPxowZ+akS2K1HTcPCreeB JuiceSSH"
-    ];
+  users = {
+    groups.media = {
+      gid = 1001;
+    };
+
+    users.al = {
+      isNormalUser = true;
+      description = "Alon Albert";
+      extraGroups = [
+        "media"
+        "networkmanager"
+        "wheel"
+      ];
+      packages = with pkgs; [
+      ];
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEggca7URZwsanzBRs6kxYOjOfs2knIcATYHvhC4N9rz gLaptop"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQpY0yw/JTDer1H2tXokXRPxowZ+akS2K1HTcPCreeB JuiceSSH"
+      ];
+    };
+    users.sabnazd = {
+      isSystemUser = true;
+      group = "media";
+    };
   };
 
   home-manager.users.al = import ./home.nix;
@@ -112,11 +123,19 @@
 
   system.stateVersion = "25.11";
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
+  services = {
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
+    };
+    sabnzbd = {
+      enable = true;
+      openFirewall = true;
+      user = "sabnazd";
+      group = "media";
     };
   };
 
